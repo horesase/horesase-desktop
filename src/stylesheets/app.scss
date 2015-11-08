@@ -2,3 +2,65 @@
   margin: 0;
   padding: 0;
 }
+
+body {
+  height: 100%;
+  overflow-y: hidden;
+  font-size: 14px;
+}
+
+#app {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+#horesase {
+  position: relative;
+
+  ul {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: scroll;
+    list-style-type: none;
+  }
+
+  ul#character-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    padding: 10px;
+    background-color: #544538;
+
+    li {
+      padding: 3px 10px 2px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #4a3c30;
+      }
+
+      &.selected {
+        background-color: #73ab9b;
+      }
+    }
+  }
+
+  ul#meigen-list {
+    margin-left: 200px;
+    padding: 10px;
+
+    li.meigen {
+      display: inline-block;
+      width: 240px;
+      margin: 10px 10px;
+
+      img {
+        width: 240px;
+      }
+    }
+  }
+}

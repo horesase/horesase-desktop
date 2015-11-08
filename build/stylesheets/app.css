@@ -2,4 +2,47 @@
   margin: 0;
   padding: 0; }
 
+body {
+  height: 100%;
+  overflow-y: hidden;
+  font-size: 14px; }
+
+#app {
+  width: 1000px;
+  margin: 0 auto; }
+
+#horesase {
+  position: relative; }
+  #horesase ul {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: scroll;
+    list-style-type: none; }
+  #horesase ul#character-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    padding: 10px;
+    background-color: #544538; }
+    #horesase ul#character-list li {
+      padding: 3px 10px 2px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer; }
+      #horesase ul#character-list li:hover {
+        background-color: #4a3c30; }
+      #horesase ul#character-list li.selected {
+        background-color: #73ab9b; }
+  #horesase ul#meigen-list {
+    margin-left: 200px;
+    padding: 10px; }
+    #horesase ul#meigen-list li.meigen {
+      display: inline-block;
+      width: 240px;
+      margin: 10px 10px; }
+      #horesase ul#meigen-list li.meigen img {
+        width: 240px; }
+
 /*# sourceMappingURL=app.css.map */
