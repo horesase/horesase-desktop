@@ -11,38 +11,43 @@ body {
   width: 1000px;
   margin: 0 auto; }
 
-#horesase {
+#searcher-container {
+  padding: 10px; }
+  #searcher-container input[type="text"] {
+    width: 100%; }
+
+#list-container {
   position: relative; }
-  #horesase ul {
+  #list-container ul {
     box-sizing: border-box;
     height: 100%;
     overflow-y: scroll;
     list-style-type: none; }
-  #horesase ul#character-list {
+  #list-container ul#character-list {
     position: absolute;
     top: 0;
     left: 0;
     width: 200px;
     padding: 10px;
     background-color: #544538; }
-    #horesase ul#character-list li {
+    #list-container ul#character-list li {
       padding: 3px 10px 2px;
       font-size: 13px;
       color: #fff;
       border-radius: 4px;
       cursor: pointer; }
-      #horesase ul#character-list li:hover {
+      #list-container ul#character-list li:hover {
         background-color: #4a3c30; }
-      #horesase ul#character-list li.selected {
+      #list-container ul#character-list li.selected {
         background-color: #73ab9b; }
-  #horesase ul#meigen-list {
+  #list-container ul#meigen-list {
     margin-left: 200px;
     padding: 10px; }
-    #horesase ul#meigen-list li.meigen {
+    #list-container ul#meigen-list li.meigen {
       display: inline-block;
       width: 240px;
       margin: 10px 10px; }
-      #horesase ul#meigen-list li.meigen img {
+      #list-container ul#meigen-list li.meigen img {
         width: 240px; }
 
 /*# sourceMappingURL=app.css.map */

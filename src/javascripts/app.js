@@ -83,6 +83,14 @@ var CharacterList = React.createClass({
   }
 });
 
+var Searcher = React.createClass({
+  render() {
+    return(
+      <input type="text" />
+    );
+  }
+});
+
 var Horesase = React.createClass({
   propTypes: {
     meigens: React.PropTypes.array.isRequired
@@ -117,8 +125,13 @@ var Horesase = React.createClass({
 
     return(
       <div id="horesase">
-        <CharacterList characters={characters} currentCharacterID={this.state.currentCharacterID} selectCharacter={this.selectCharacter} />
-        <MeigenList meigens={this.state.displayedMeigens} />
+        <div id="searcher-container">
+          <Searcher />
+        </div>
+        <div id="list-container">
+          <CharacterList characters={characters} currentCharacterID={this.state.currentCharacterID} selectCharacter={this.selectCharacter} />
+          <MeigenList meigens={this.state.displayedMeigens} />
+        </div>
       </div>
     );
   }

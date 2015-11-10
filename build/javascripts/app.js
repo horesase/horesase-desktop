@@ -83,6 +83,14 @@ var CharacterList = React.createClass({displayName: "CharacterList",
   }
 });
 
+var Searcher = React.createClass({displayName: "Searcher",
+  render:function() {
+    return(
+      React.createElement("input", {type: "text"})
+    );
+  }
+});
+
 var Horesase = React.createClass({displayName: "Horesase",
   propTypes: {
     meigens: React.PropTypes.array.isRequired
@@ -117,8 +125,13 @@ var Horesase = React.createClass({displayName: "Horesase",
 
     return(
       React.createElement("div", {id: "horesase"}, 
-        React.createElement(CharacterList, {characters: characters, currentCharacterID: this.state.currentCharacterID, selectCharacter: this.selectCharacter}), 
-        React.createElement(MeigenList, {meigens: this.state.displayedMeigens})
+        React.createElement("div", {id: "searcher-container"}, 
+          React.createElement(Searcher, null)
+        ), 
+        React.createElement("div", {id: "list-container"}, 
+          React.createElement(CharacterList, {characters: characters, currentCharacterID: this.state.currentCharacterID, selectCharacter: this.selectCharacter}), 
+          React.createElement(MeigenList, {meigens: this.state.displayedMeigens})
+        )
       )
     );
   }

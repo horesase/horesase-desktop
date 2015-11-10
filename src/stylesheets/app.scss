@@ -14,7 +14,15 @@ body {
   margin: 0 auto;
 }
 
-#horesase {
+#searcher-container {
+  padding: 10px;
+
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+#list-container {
   position: relative;
 
   ul {
