@@ -3,18 +3,31 @@
   padding: 0; }
 
 body {
-  height: 100%;
+  box-sizing: border-box;
+  height: 90%;
   overflow-y: hidden;
+  padding: 10px 0;
   font-size: 14px; }
 
 #app {
-  width: 1000px;
+  width: 1002px;
   margin: 0 auto; }
 
+#horesase {
+  border: 1px solid #bebebe;
+  border-radius: 6px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); }
+
 #searcher-container {
-  padding: 10px; }
+  padding: 20px;
+  background-color: #e8e6e8;
+  border-bottom: 1px solid #c2c0c2;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px; }
   #searcher-container input[type="text"] {
-    width: 100%; }
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 10px; }
 
 #list-container {
   position: relative; }
@@ -29,17 +42,16 @@ body {
     left: 0;
     width: 200px;
     padding: 10px;
-    background-color: #544538; }
+    border-right: 1px solid #ddd;
+    background-color: #f5f5f4;
+    border-bottom-left-radius: 6px; }
     #list-container ul#character-list li {
       padding: 3px 10px 2px;
       font-size: 13px;
-      color: #fff;
-      border-radius: 4px;
+      color: #333;
       cursor: pointer; }
-      #list-container ul#character-list li:hover {
-        background-color: #4a3c30; }
       #list-container ul#character-list li.selected {
-        background-color: #73ab9b; }
+        font-weight: bold; }
   #list-container ul#meigen-list {
     margin-left: 200px;
     padding: 10px; }
