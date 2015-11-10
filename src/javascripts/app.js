@@ -84,9 +84,17 @@ var CharacterList = React.createClass({
 });
 
 var Searcher = React.createClass({
+  propTypes: {
+    updateQuery: React.PropTypes.func.isRequired
+  },
+
+  onChange(event) {
+    this.props.updateQuery(event.target.value);
+  },
+
   render() {
     return(
-      <input type="text" />
+      <input type="search" onChange={this.onChange} />
     );
   }
 });
@@ -98,24 +106,17 @@ var Horesase = React.createClass({
 
   getInitialState() {
     return {
+      query: "",
       currentCharacterID: 0,
-      displayedMeigens:   _.take(this.props.meigens.reverse(), 36)
     }
   },
 
   selectCharacter(characterID) {
-    var _displayedMeigens;
+    this.setState({ currentCharacterID: characterID });
+  },
 
-    if (characterID == 0) {
-      _displayedMeigens = _.take(this.props.meigens, 36)
-    } else {
-      _displayedMeigens = _.take(this.props.meigens.filter((m) => { return m.cid == characterID }), 36)
-    }
-
-    this.setState({
-      currentCharacterID: characterID,
-      displayedMeigens:   _displayedMeigens
-    });
+  updateQuery(newQuery) {
+    this.setState({ query: newQuery });
   },
 
   render() {
@@ -123,14 +124,29 @@ var Horesase = React.createClass({
       return { id: m.cid, name: m.character }
     }), "id");
 
+    var filtered = this.props.meigens;
+
+    if (this.state.currentCharacterID != 0) {
+      filtered = this.props.meigens.filter((m) => { return m.cid == this.state.currentCharacterID });
+    }
+
+    if (this.state.query.length > 0) {
+      filtered = filtered.filter((m) => {
+        var re = new RegExp(this.state.query);
+        return m.title.match(re) || m.body.match(re) || m.character.match(re);
+      });
+    }
+
+    filtered = _.take(filtered, 36);
+
     return(
       <div id="horesase">
         <div id="searcher-container">
-          <Searcher />
+          <Searcher updateQuery={this.updateQuery} />
         </div>
         <div id="list-container">
           <CharacterList characters={characters} currentCharacterID={this.state.currentCharacterID} selectCharacter={this.selectCharacter} />
-          <MeigenList meigens={this.state.displayedMeigens} />
+          <MeigenList meigens={filtered} />
         </div>
       </div>
     );

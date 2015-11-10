@@ -24,10 +24,10 @@ body {
   border-bottom: 1px solid #c2c0c2;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px; }
-  #searcher-container input[type="text"] {
+  #searcher-container input[type="search"] {
     box-sizing: border-box;
     width: 100%;
-    padding: 5px 10px; }
+    font-size: 200%; }
 
 #list-container {
   position: relative; }

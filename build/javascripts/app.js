@@ -84,9 +84,17 @@ var CharacterList = React.createClass({displayName: "CharacterList",
 });
 
 var Searcher = React.createClass({displayName: "Searcher",
+  propTypes: {
+    updateQuery: React.PropTypes.func.isRequired
+  },
+
+  onChange:function(event) {
+    this.props.updateQuery(event.target.value);
+  },
+
   render:function() {
     return(
-      React.createElement("input", {type: "text"})
+      React.createElement("input", {type: "search", onChange: this.onChange})
     );
   }
 });
@@ -98,24 +106,17 @@ var Horesase = React.createClass({displayName: "Horesase",
 
   getInitialState:function() {
     return {
+      query: "",
       currentCharacterID: 0,
-      displayedMeigens:   _.take(this.props.meigens.reverse(), 36)
     }
   },
 
   selectCharacter:function(characterID) {
-    var _displayedMeigens;
+    this.setState({ currentCharacterID: characterID });
+  },
 
-    if (characterID == 0) {
-      _displayedMeigens = _.take(this.props.meigens, 36)
-    } else {
-      _displayedMeigens = _.take(this.props.meigens.filter(function(m)  { return m.cid == characterID }), 36)
-    }
-
-    this.setState({
-      currentCharacterID: characterID,
-      displayedMeigens:   _displayedMeigens
-    });
+  updateQuery:function(newQuery) {
+    this.setState({ query: newQuery });
   },
 
   render:function() {
@@ -123,14 +124,29 @@ var Horesase = React.createClass({displayName: "Horesase",
       return { id: m.cid, name: m.character }
     }), "id");
 
+    var filtered = this.props.meigens;
+
+    if (this.state.currentCharacterID != 0) {
+      filtered = this.props.meigens.filter(function(m)  { return m.cid == this.state.currentCharacterID }.bind(this));
+    }
+
+    if (this.state.query.length > 0) {
+      filtered = filtered.filter(function(m)  {
+        var re = new RegExp(this.state.query);
+        return m.title.match(re) || m.body.match(re) || m.character.match(re);
+      }.bind(this));
+    }
+
+    filtered = _.take(filtered, 36);
+
     return(
       React.createElement("div", {id: "horesase"}, 
         React.createElement("div", {id: "searcher-container"}, 
-          React.createElement(Searcher, null)
+          React.createElement(Searcher, {updateQuery: this.updateQuery})
         ), 
         React.createElement("div", {id: "list-container"}, 
           React.createElement(CharacterList, {characters: characters, currentCharacterID: this.state.currentCharacterID, selectCharacter: this.selectCharacter}), 
-          React.createElement(MeigenList, {meigens: this.state.displayedMeigens})
+          React.createElement(MeigenList, {meigens: filtered})
         )
       )
     );
