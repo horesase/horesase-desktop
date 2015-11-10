@@ -62,7 +62,12 @@ body {
       color: #333;
       cursor: pointer;
 
+      &:hover {
+        background-color: #e2e2e2;
+      }
+
       &.selected {
+        background-color: #e2e2e2;
         font-weight: bold;
       }
     }

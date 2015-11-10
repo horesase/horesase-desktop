@@ -50,7 +50,10 @@ body {
       font-size: 13px;
       color: #333;
       cursor: pointer; }
+      #list-container ul#character-list li:hover {
+        background-color: #e2e2e2; }
       #list-container ul#character-list li.selected {
+        background-color: #e2e2e2;
         font-weight: bold; }
   #list-container ul#meigen-list {
     margin-left: 200px;
