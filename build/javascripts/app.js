@@ -1,30 +1,13 @@
-var Meigen = React.createClass({displayName: "Meigen",
-  propTypes: {
-    id:        React.PropTypes.number.isRequired,
-    title:     React.PropTypes.string.isRequired,
-    image:     React.PropTypes.string.isRequired,
-    character: React.PropTypes.string.isRequired,
-    cid:       React.PropTypes.number.isRequired,
-    eid:       React.PropTypes.number.isRequired,
-    body:      React.PropTypes.string.isRequired
-  },
-
-  render:function() {
-    return (
-      React.createElement("li", {className: "meigen"}, React.createElement("img", {src: this.props.image}))
-    );
-  }
-});
-
 var MeigenList = React.createClass({displayName: "MeigenList",
   propTypes: {
-    meigens: React.PropTypes.array.isRequired
+    meigens:      React.PropTypes.array.isRequired,
+    selectMeigen: React.PropTypes.func.isRequired
   },
 
   render:function() {
     var list = this.props.meigens.map(function(m)  {
-      return React.createElement(Meigen, {id: m.id, title: m.title, image: m.image, character: m.character, cid: m.cid, eid: m.eid, body: m.body, key: m.id})
-    });
+      return React.createElement(Meigen, {id: m.id, title: m.title, image: m.image, character: m.character, cid: m.cid, eid: m.eid, body: m.body, key: m.id, selectMeigen: this.props.selectMeigen})
+    }.bind(this));
 
     return(
       React.createElement("ul", {id: "meigen-list"}, list)
@@ -32,24 +15,55 @@ var MeigenList = React.createClass({displayName: "MeigenList",
   }
 });
 
-var Character = React.createClass({displayName: "Character",
+var Meigen = React.createClass({displayName: "Meigen",
   propTypes: {
-    id:              React.PropTypes.number.isRequired,
-    name:            React.PropTypes.string.isRequired,
-    selected:        React.PropTypes.bool.isRequired,
-    selectCharacter: React.PropTypes.func.isRequired
+    id:           React.PropTypes.number.isRequired,
+    title:        React.PropTypes.string.isRequired,
+    image:        React.PropTypes.string.isRequired,
+    character:    React.PropTypes.string.isRequired,
+    cid:          React.PropTypes.number.isRequired,
+    eid:          React.PropTypes.number.isRequired,
+    body:         React.PropTypes.string.isRequired,
+    selectMeigen: React.PropTypes.func.isRequired
   },
 
   onClick:function() {
-    this.props.selectCharacter(this.props.id);
+    this.props.selectMeigen(this.props.id);
   },
 
   render:function() {
-    if (this.props.selected) {
-      return React.createElement("li", {className: "character selected"}, this.props.name)
-    } else {
-      return React.createElement("li", {className: "character", onClick: this.onClick}, this.props.name)
-    }
+    return (
+      React.createElement("li", {className: "meigen", onClick: this.onClick}, React.createElement("img", {src: this.props.image}))
+    );
+  }
+});
+
+var MeigenPopup = React.createClass({displayName: "MeigenPopup",
+  propTypes: {
+    id:             React.PropTypes.number.isRequired,
+    title:          React.PropTypes.string.isRequired,
+    image:          React.PropTypes.string.isRequired,
+    character:      React.PropTypes.string.isRequired,
+    cid:            React.PropTypes.number.isRequired,
+    eid:            React.PropTypes.number.isRequired,
+    unselectMeigen: React.PropTypes.func.isRequired
+  },
+
+  onClick:function() {
+    this.props.unselectMeigen();
+  },
+
+  render:function() {
+    return(
+      React.createElement("div", {id: "popup-container", onClick: this.onClick}, 
+        React.createElement("div", {id: "popup"}, 
+          React.createElement("p", null, 
+            React.createElement("img", {src: this.props.image})
+          ), 
+          React.createElement("p", null, this.props.title)
+        )
+      )
+    );
   }
 });
 
@@ -83,6 +97,27 @@ var CharacterList = React.createClass({displayName: "CharacterList",
   }
 });
 
+var Character = React.createClass({displayName: "Character",
+  propTypes: {
+    id:              React.PropTypes.number.isRequired,
+    name:            React.PropTypes.string.isRequired,
+    selected:        React.PropTypes.bool.isRequired,
+    selectCharacter: React.PropTypes.func.isRequired
+  },
+
+  onClick:function() {
+    this.props.selectCharacter(this.props.id);
+  },
+
+  render:function() {
+    if (this.props.selected) {
+      return React.createElement("li", {className: "character selected"}, this.props.name)
+    } else {
+      return React.createElement("li", {className: "character", onClick: this.onClick}, this.props.name)
+    }
+  }
+});
+
 var Searcher = React.createClass({displayName: "Searcher",
   propTypes: {
     updateQuery: React.PropTypes.func.isRequired
@@ -108,7 +143,16 @@ var Horesase = React.createClass({displayName: "Horesase",
     return {
       query: "",
       currentCharacterID: 0,
+      selectedMeigenID: null
     }
+  },
+
+  selectMeigen:function(meigenID) {
+    this.setState({ selectedMeigenID: meigenID });
+  },
+
+  unselectMeigen:function() {
+    this.setState({ selectedMeigenID: null });
   },
 
   selectCharacter:function(characterID) {
@@ -124,10 +168,17 @@ var Horesase = React.createClass({displayName: "Horesase",
       return { id: m.cid, name: m.character }
     }), "id");
 
-    var filtered = this.props.meigens;
+    var popup = null;
+
+    if (this.state.selectedMeigenID) {
+      var meigen = this.props.meigens.filter(function(m)  { return m.id == this.state.selectedMeigenID }.bind(this))[0];
+      popup = React.createElement(MeigenPopup, {id: meigen.id, title: meigen.title, image: meigen.image, character: meigen.character, cid: meigen.cid, eid: meigen.eid, unselectMeigen: this.unselectMeigen})
+    }
+
+    var filtered = this.props.meigens.reverse();
 
     if (this.state.currentCharacterID != 0) {
-      filtered = this.props.meigens.filter(function(m)  { return m.cid == this.state.currentCharacterID }.bind(this));
+      filtered = this.props.meigens.reverse().filter(function(m)  { return m.cid == this.state.currentCharacterID }.bind(this));
     }
 
     if (this.state.query.length > 0) {
@@ -146,8 +197,9 @@ var Horesase = React.createClass({displayName: "Horesase",
         ), 
         React.createElement("div", {id: "list-container"}, 
           React.createElement(CharacterList, {characters: characters, currentCharacterID: this.state.currentCharacterID, selectCharacter: this.selectCharacter}), 
-          React.createElement(MeigenList, {meigens: filtered})
-        )
+          React.createElement(MeigenList, {meigens: filtered, selectMeigen: this.selectMeigen})
+        ), 
+        popup
       )
     );
   }
