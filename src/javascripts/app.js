@@ -175,10 +175,10 @@ var Horesase = React.createClass({
       popup = <MeigenPopup id={meigen.id} title={meigen.title} image={meigen.image} character={meigen.character} cid={meigen.cid} eid={meigen.eid} unselectMeigen={this.unselectMeigen} />
     }
 
-    var filtered = this.props.meigens.reverse();
+    var filtered = this.props.meigens;
 
     if (this.state.currentCharacterID != 0) {
-      filtered = this.props.meigens.reverse().filter((m) => { return m.cid == this.state.currentCharacterID });
+      filtered = this.props.meigens.filter((m) => { return m.cid == this.state.currentCharacterID });
     }
 
     if (this.state.query.length > 0) {
@@ -188,7 +188,7 @@ var Horesase = React.createClass({
       });
     }
 
-    filtered = _.take(filtered, 36);
+    filtered = _.take(_.sortBy(filtered, (m) => { return m.id * -1 }), 36);
 
     return(
       <div id="horesase">
