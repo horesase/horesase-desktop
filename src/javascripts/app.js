@@ -49,8 +49,14 @@ var MeigenPopup = React.createClass({
     unselectMeigen: React.PropTypes.func.isRequired
   },
 
-  onClick() {
-    this.props.unselectMeigen();
+  onClick(event) {
+    if (event.target.id == "popup-container") {
+      this.props.unselectMeigen();
+    }
+  },
+
+  onFocus(event) {
+    event.target.select();
   },
 
   render() {
@@ -75,15 +81,24 @@ var MeigenPopup = React.createClass({
             <div className="copy-boards">
               <div className="copy-board">
                 <h3>Markdown</h3>
-                <p><input type="text" value={paster.markdown} /></p>
+                <p><input type="text" defaultValue={paster.markdown} onFocus={this.onFocus} /></p>
+                <span className="copy-button" data-clipboard-text={paster.markdown}>
+                  <img src="build/images/clippy.svg" width="14" />
+                </span>
               </div>
               <div className="copy-board">
                 <h3>HTML</h3>
-                <p><input type="text" value={paster.html} /></p>
+                <p><input type="text" defaultValue={paster.html} onFocus={this.onFocus} /></p>
+                <span className="copy-button" data-clipboard-text={paster.html}>
+                  <img src="build/images/clippy.svg" width="14" />
+                </span>
               </div>
               <div className="copy-board">
                 <h3>URL</h3>
-                <p><input type="text" value={paster.url} /></p>
+                <p><input type="text" defaultValue={paster.url} onFocus={this.onFocus} /></p>
+                <span className="copy-button" data-clipboard-text={paster.url}>
+                  <img src="build/images/clippy.svg" width="14" />
+                </span>
               </div>
             </div>
           </div>
@@ -235,3 +250,5 @@ ReactDOM.render(
   <Horesase meigens={meigens} />,
   document.getElementById("app")
 );
+
+new Clipboard(".copy-button");

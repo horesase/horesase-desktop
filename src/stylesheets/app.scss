@@ -130,18 +130,21 @@ body {
       top: 20px;
       right: 20px;
       width: 240px;
-      height: 320px;
+      height: 322px;
 
       h2 {
-        font-size: 14px;
+        font-size: 16px;
       }
 
-
-
       .copy-boards {
-        margin-top: 30px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
 
         .copy-board {
+          position: relative;
+
           h3 {
             margin: 0 0 5px;
             font-size: 12px;
@@ -153,8 +156,30 @@ body {
             input[type="text"] {
               box-sizing: border-box;
               width: 100%;
-              padding: 3px 5px;
+              line-height: 22px;
+              padding: 0 5px;
             }
+          }
+
+          .copy-button {
+            position: absolute;
+            right: 1px;
+            bottom: 1px;
+            width: 14px;
+            height: 16px;
+            padding: 4px 8px 4px 10px;
+            background-color: #eee;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #ddd;
+            }
+          }
+        }
+
+        .copy-board:last-child {
+          p {
+            margin-bottom: 0;
           }
         }
       }

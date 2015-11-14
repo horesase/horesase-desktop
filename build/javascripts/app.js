@@ -49,8 +49,14 @@ var MeigenPopup = React.createClass({displayName: "MeigenPopup",
     unselectMeigen: React.PropTypes.func.isRequired
   },
 
-  onClick:function() {
-    this.props.unselectMeigen();
+  onClick:function(event) {
+    if (event.target.id == "popup-container") {
+      this.props.unselectMeigen();
+    }
+  },
+
+  onFocus:function(event) {
+    event.target.select();
   },
 
   render:function() {
@@ -75,15 +81,24 @@ var MeigenPopup = React.createClass({displayName: "MeigenPopup",
             React.createElement("div", {className: "copy-boards"}, 
               React.createElement("div", {className: "copy-board"}, 
                 React.createElement("h3", null, "Markdown"), 
-                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.markdown}))
+                React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.markdown, onFocus: this.onFocus})), 
+                React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.markdown}, 
+                  React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
+                )
               ), 
               React.createElement("div", {className: "copy-board"}, 
                 React.createElement("h3", null, "HTML"), 
-                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.html}))
+                React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.html, onFocus: this.onFocus})), 
+                React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.html}, 
+                  React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
+                )
               ), 
               React.createElement("div", {className: "copy-board"}, 
                 React.createElement("h3", null, "URL"), 
-                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.url}))
+                React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.url, onFocus: this.onFocus})), 
+                React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.url}, 
+                  React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
+                )
               )
             )
           )
@@ -235,3 +250,5 @@ ReactDOM.render(
   React.createElement(Horesase, {meigens: meigens}),
   document.getElementById("app")
 );
+
+new Clipboard(".copy-button");

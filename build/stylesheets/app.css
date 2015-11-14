@@ -100,19 +100,38 @@ body {
       top: 20px;
       right: 20px;
       width: 240px;
-      height: 320px; }
+      height: 322px; }
       #popup-container #popup .info h2 {
-        font-size: 14px; }
+        font-size: 16px; }
       #popup-container #popup .info .copy-boards {
-        margin-top: 30px; }
-        #popup-container #popup .info .copy-boards .copy-board h3 {
-          margin: 0 0 5px;
-          font-size: 12px; }
-        #popup-container #popup .info .copy-boards .copy-board p {
-          margin: 0 0 15px; }
-          #popup-container #popup .info .copy-boards .copy-board p input[type="text"] {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 3px 5px; }
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%; }
+        #popup-container #popup .info .copy-boards .copy-board {
+          position: relative; }
+          #popup-container #popup .info .copy-boards .copy-board h3 {
+            margin: 0 0 5px;
+            font-size: 12px; }
+          #popup-container #popup .info .copy-boards .copy-board p {
+            margin: 0 0 15px; }
+            #popup-container #popup .info .copy-boards .copy-board p input[type="text"] {
+              box-sizing: border-box;
+              width: 100%;
+              line-height: 22px;
+              padding: 0 5px; }
+          #popup-container #popup .info .copy-boards .copy-board .copy-button {
+            position: absolute;
+            right: 1px;
+            bottom: 1px;
+            width: 14px;
+            height: 16px;
+            padding: 4px 8px 4px 10px;
+            background-color: #eee;
+            cursor: pointer; }
+            #popup-container #popup .info .copy-boards .copy-board .copy-button:hover {
+              background-color: #ddd; }
+        #popup-container #popup .info .copy-boards .copy-board:last-child p {
+          margin-bottom: 0; }
 
 /*# sourceMappingURL=app.css.map */
