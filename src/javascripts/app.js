@@ -94,7 +94,7 @@ var MeigenPopup = React.createClass({
                 </span>
               </div>
               <div className="copy-board">
-                <h3>URL</h3>
+                <h3>Image URL</h3>
                 <p><input type="text" defaultValue={paster.url} onFocus={this.onFocus} /></p>
                 <span className="copy-button" data-clipboard-text={paster.url}>
                   <img src="build/images/clippy.svg" width="14" />

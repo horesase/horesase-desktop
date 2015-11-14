@@ -94,7 +94,7 @@ var MeigenPopup = React.createClass({displayName: "MeigenPopup",
                 )
               ), 
               React.createElement("div", {className: "copy-board"}, 
-                React.createElement("h3", null, "URL"), 
+                React.createElement("h3", null, "Image URL"), 
                 React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.url, onFocus: this.onFocus})), 
                 React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.url}, 
                   React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
