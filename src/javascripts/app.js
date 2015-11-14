@@ -54,13 +54,39 @@ var MeigenPopup = React.createClass({
   },
 
   render() {
+    var entryTitle = `惚れさせ${this.props.id} 「${this.props.title}」`;
+    var entryURL   = `http://jigokuno.com/eid_${this.props.eid}.html`;
+
+    var paster = {
+      markdown: `[![${entryTitle}](${this.props.image})](${entryURL})`,
+      html:     `<a href="${entryURL}" title="${entryTitle}"><img src="${this.props.image}" alt="${entryTitle}" /></a>`,
+      url:      this.props.image
+    }
+
     return(
       <div id="popup-container" onClick={this.onClick}>
         <div id="popup">
-          <p>
-            <img src={this.props.image} />
-          </p>
-          <p>{this.props.title}</p>
+          <div className="image"><img src={this.props.image} /></div>
+          <div className="info">
+            <h2>{this.props.title}</h2>
+            <p className="character">
+              {this.props.character}
+            </p>
+            <div className="copy-boards">
+              <div className="copy-board">
+                <h3>Markdown</h3>
+                <p><input type="text" value={paster.markdown} /></p>
+              </div>
+              <div className="copy-board">
+                <h3>HTML</h3>
+                <p><input type="text" value={paster.html} /></p>
+              </div>
+              <div className="copy-board">
+                <h3>URL</h3>
+                <p><input type="text" value={paster.url} /></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

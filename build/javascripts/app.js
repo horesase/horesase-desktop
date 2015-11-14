@@ -54,13 +54,39 @@ var MeigenPopup = React.createClass({displayName: "MeigenPopup",
   },
 
   render:function() {
+    var entryTitle = ("惚れさせ" + this.props.id + " 「" + this.props.title + "」");
+    var entryURL   = ("http://jigokuno.com/eid_" + this.props.eid + ".html");
+
+    var paster = {
+      markdown: ("[![" + entryTitle + "](" + this.props.image + ")](" + entryURL + ")"),
+      html:     ("<a href=\"" + entryURL + "\" title=\"" + entryTitle + "\"><img src=\"" + this.props.image + "\" alt=\"" + entryTitle + "\" /></a>"),
+      url:      this.props.image
+    }
+
     return(
       React.createElement("div", {id: "popup-container", onClick: this.onClick}, 
         React.createElement("div", {id: "popup"}, 
-          React.createElement("p", null, 
-            React.createElement("img", {src: this.props.image})
-          ), 
-          React.createElement("p", null, this.props.title)
+          React.createElement("div", {className: "image"}, React.createElement("img", {src: this.props.image})), 
+          React.createElement("div", {className: "info"}, 
+            React.createElement("h2", null, this.props.title), 
+            React.createElement("p", {className: "character"}, 
+              this.props.character
+            ), 
+            React.createElement("div", {className: "copy-boards"}, 
+              React.createElement("div", {className: "copy-board"}, 
+                React.createElement("h3", null, "Markdown"), 
+                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.markdown}))
+              ), 
+              React.createElement("div", {className: "copy-board"}, 
+                React.createElement("h3", null, "HTML"), 
+                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.html}))
+              ), 
+              React.createElement("div", {className: "copy-board"}, 
+                React.createElement("h3", null, "URL"), 
+                React.createElement("p", null, React.createElement("input", {type: "text", value: paster.url}))
+              )
+            )
+          )
         )
       )
     );
