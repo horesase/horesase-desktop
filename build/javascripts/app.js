@@ -84,21 +84,24 @@ var MeigenPopup = React.createClass({displayName: "MeigenPopup",
                 React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.markdown, onFocus: this.onFocus})), 
                 React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.markdown}, 
                   React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
-                )
+                ), 
+                React.createElement("span", {className: "status"}, "Copied!")
               ), 
               React.createElement("div", {className: "copy-board"}, 
                 React.createElement("h3", null, "HTML"), 
                 React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.html, onFocus: this.onFocus})), 
                 React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.html}, 
                   React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
-                )
+                ), 
+                React.createElement("span", {className: "status"}, "Copied!")
               ), 
               React.createElement("div", {className: "copy-board"}, 
                 React.createElement("h3", null, "Image URL"), 
                 React.createElement("p", null, React.createElement("input", {type: "text", defaultValue: paster.url, onFocus: this.onFocus})), 
                 React.createElement("span", {className: "copy-button", "data-clipboard-text": paster.url}, 
                   React.createElement("img", {src: "build/images/clippy.svg", width: "14"})
-                )
+                ), 
+                React.createElement("span", {className: "status"}, "Copied!")
               )
             )
           )
@@ -251,4 +254,13 @@ ReactDOM.render(
   document.getElementById("app")
 );
 
-new Clipboard(".copy-button");
+var clipboard = new Clipboard(".copy-button");
+
+clipboard.on("success", function(event) {
+  var status = event.trigger.nextSibling;
+  status.className = (status.className + " shown");
+
+  setTimeout(function() {
+    status.className = status.className.replace("shown", "");
+  }, 1000);
+});

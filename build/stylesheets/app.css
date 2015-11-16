@@ -131,6 +131,15 @@ body {
             cursor: pointer; }
             #popup-container #popup .info .copy-boards .copy-board .copy-button:hover {
               background-color: #ddd; }
+          #popup-container #popup .info .copy-boards .copy-board .status {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 12px;
+            color: green; }
+            #popup-container #popup .info .copy-boards .copy-board .status.shown {
+              display: inline; }
         #popup-container #popup .info .copy-boards .copy-board:last-child p {
           margin-bottom: 0; }
 

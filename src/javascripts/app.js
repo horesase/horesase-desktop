@@ -85,6 +85,7 @@ var MeigenPopup = React.createClass({
                 <span className="copy-button" data-clipboard-text={paster.markdown}>
                   <img src="build/images/clippy.svg" width="14" />
                 </span>
+                <span className="status">Copied!</span>
               </div>
               <div className="copy-board">
                 <h3>HTML</h3>
@@ -92,6 +93,7 @@ var MeigenPopup = React.createClass({
                 <span className="copy-button" data-clipboard-text={paster.html}>
                   <img src="build/images/clippy.svg" width="14" />
                 </span>
+                <span className="status">Copied!</span>
               </div>
               <div className="copy-board">
                 <h3>Image URL</h3>
@@ -99,6 +101,7 @@ var MeigenPopup = React.createClass({
                 <span className="copy-button" data-clipboard-text={paster.url}>
                   <img src="build/images/clippy.svg" width="14" />
                 </span>
+                <span className="status">Copied!</span>
               </div>
             </div>
           </div>
@@ -251,4 +254,13 @@ ReactDOM.render(
   document.getElementById("app")
 );
 
-new Clipboard(".copy-button");
+var clipboard = new Clipboard(".copy-button");
+
+clipboard.on("success", function(event) {
+  var status = event.trigger.nextSibling;
+  status.className = `${status.className} shown`;
+
+  setTimeout(function() {
+    status.className = status.className.replace("shown", "");
+  }, 1000);
+});
