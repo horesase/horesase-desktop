@@ -4,26 +4,17 @@
 
 body {
   box-sizing: border-box;
-  height: 90%;
-  overflow-y: hidden;
-  padding: 10px 0;
-  font-size: 14px; }
+  font-size: 14px;
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, fantasy; }
 
 #app {
   width: 1002px;
   margin: 0 auto; }
 
-#horesase {
-  border: 1px solid #bebebe;
-  border-radius: 6px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); }
-
 #searcher-container {
   padding: 20px;
   background-color: #e8e6e8;
-  border-bottom: 1px solid #c2c0c2;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px; }
+  border-bottom: 1px solid #c2c0c2; }
   #searcher-container input[type="search"] {
     box-sizing: border-box;
     width: 100%;
