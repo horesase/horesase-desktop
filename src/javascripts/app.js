@@ -1,3 +1,10 @@
+var React     = require('react');
+var ReactDOM  = require('react-dom');
+var _         = require("lodash");
+var Clipboard = require("clipboard");
+
+require("../stylesheets/app.scss");
+
 var MeigenList = React.createClass({
   propTypes: {
     meigens:      React.PropTypes.array.isRequired,

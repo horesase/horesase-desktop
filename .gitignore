@@ -1,3 +1,5 @@
 .sass-cache
 .module-cache
 *.map
+/build
+/node_modules

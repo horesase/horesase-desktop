@@ -10,11 +10,34 @@
     "type": "git",
     "url": "git+ssh://git@github.com/horesase/horesase-desktop.git"
   },
-  "keywords": ["horesase"],
+  "keywords": [
+    "horesase"
+  ],
   "author": "june29",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/horesase/horesase-desktop/issues"
   },
-  "homepage": "https://github.com/horesase/horesase-desktop"
+  "homepage": "https://github.com/horesase/horesase-desktop",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-watch": "^4.3.5",
+    "gulp-webpack": "^1.5.0",
+    "webpack": "^1.12.6",
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.1.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "css-loader": "",
+    "sass-loader": "",
+    "style-loader": ""
+  },
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "lodash": "^3.10.1",
+    "clipboard": "^1.5.5"
+  }
 }
