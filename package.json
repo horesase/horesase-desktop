@@ -32,7 +32,8 @@
     "babel-preset-react": "^6.1.18",
     "css-loader": "",
     "sass-loader": "",
-    "style-loader": ""
+    "style-loader": "",
+    "image-webpack-loader": ""
   },
   "dependencies": {
     "react": "^0.14.3",

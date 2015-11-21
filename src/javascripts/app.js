@@ -5,6 +5,8 @@ var Clipboard = require("clipboard");
 
 require("../stylesheets/app.scss");
 
+var imgClippyPath = "build/" + require("../images/clippy.svg");
+
 var MeigenList = React.createClass({
   propTypes: {
     meigens:      React.PropTypes.array.isRequired,
@@ -90,7 +92,7 @@ var MeigenPopup = React.createClass({
                 <h3>Markdown</h3>
                 <p><input type="text" defaultValue={paster.markdown} onFocus={this.onFocus} /></p>
                 <span className="copy-button" data-clipboard-text={paster.markdown}>
-                  <img src="build/images/clippy.svg" width="14" />
+                  <img src={imgClippyPath} width="14" />
                 </span>
                 <span className="status">Copied!</span>
               </div>
@@ -98,7 +100,7 @@ var MeigenPopup = React.createClass({
                 <h3>HTML</h3>
                 <p><input type="text" defaultValue={paster.html} onFocus={this.onFocus} /></p>
                 <span className="copy-button" data-clipboard-text={paster.html}>
-                  <img src="build/images/clippy.svg" width="14" />
+                  <img src={imgClippyPath} width="14" />
                 </span>
                 <span className="status">Copied!</span>
               </div>
@@ -106,7 +108,7 @@ var MeigenPopup = React.createClass({
                 <h3>Image URL</h3>
                 <p><input type="text" defaultValue={paster.url} onFocus={this.onFocus} /></p>
                 <span className="copy-button" data-clipboard-text={paster.url}>
-                  <img src="build/images/clippy.svg" width="14" />
+                  <img src={imgClippyPath} width="14" />
                 </span>
                 <span className="status">Copied!</span>
               </div>
