@@ -290,7 +290,7 @@ var Horesase = React.createClass({
 });
 
 ReactDOM.render(
-  <Horesase meigens={meigens} />,
+  <Horesase />,
   document.getElementById("app")
 );
 
