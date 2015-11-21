@@ -8,10 +8,11 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js"
   },
+  target: "atom",
   module: {
     loaders: [
       {
-        test:   /\.jsx?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: "babel",
         query:
@@ -31,5 +32,5 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
 }

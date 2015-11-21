@@ -1,21 +1,24 @@
 "use strict";
 
-var app = require("app");
+var App           = require("app");
 var BrowserWindow = require("browser-window");
+var CrashReporter = require("crash-reporter");
 
-require("crash-reporter").start();
+CrashReporter.start();
 
-var mainWindow = null;
-
-app.on("window-all-closed", function() {
+App.on("window-all-closed", function() {
   if (process.platform != "darwin") {
-    app.quit();
+    App.quit();
   }
 });
 
-app.on("ready", function() {
+var mainWindow = null;
+
+App.on("ready", function() {
   mainWindow = new BrowserWindow({ width: 1000, height: 800, resizable: false });
   mainWindow.loadUrl("file://" + __dirname + "/index.html");
+
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on("closed", function() {
     mainWindow = null;

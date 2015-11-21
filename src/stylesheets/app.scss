@@ -14,6 +14,41 @@ body {
   margin: 0 auto;
 }
 
+#splash {
+  text-align: center;
+
+  .image {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .message {
+    font-size: 30px;
+  }
+}
+
+#splash.splash-1, #splash.splash-4 {
+  .image {
+    height: 700px;
+
+    img {
+      max-height: 670px;
+    }
+  }
+}
+
+#splash.splash-2, #splash.splash-3 {
+  .image {
+    height: 670px;
+    padding-top: 30px;
+
+    img {
+      max-height: 700px;
+    }
+  }
+}
+
 #searcher-container {
   padding: 20px;
   background-color: #e8e6e8;

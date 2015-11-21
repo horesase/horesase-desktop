@@ -1,11 +1,22 @@
-var React     = require('react');
-var ReactDOM  = require('react-dom');
+// Libraries
+
+var React     = require("react");
+var ReactDOM  = require("react-dom");
+var HTTP      = require("http");
 var _         = require("lodash");
 var Clipboard = require("clipboard");
 
+// Stylesheets
+
 require("../stylesheets/app.scss");
 
+// Images
+
 var imgClippyPath = "build/" + require("../images/clippy.svg");
+var splashNumber  = parseInt((Math.floor(Math.random() * 3) + 1));
+var imgSplashPath = "build/" + require("../images/splash/" + splashNumber + ".gif")
+
+// Components
 
 var MeigenList = React.createClass({
   propTypes: {
@@ -188,12 +199,9 @@ var Searcher = React.createClass({
 });
 
 var Horesase = React.createClass({
-  propTypes: {
-    meigens: React.PropTypes.array.isRequired
-  },
-
   getInitialState() {
     return {
+      meigens: null,
       query: "",
       currentCharacterID: 0,
       selectedMeigenID: null
@@ -217,21 +225,44 @@ var Horesase = React.createClass({
   },
 
   render() {
-    var characters = _.uniq(this.props.meigens.map((m) => {
+    if (this.state.meigens == null) {
+      HTTP.request({ host: "horesase.github.io", path: "/horesase-boys/meigens.json" }, (response) => {
+        var result = "";
+        response.on("data", (chunk) => { result += chunk; });
+        response.on("end", () => {
+          setTimeout(() => {
+            this.setState({ meigens: JSON.parse(result) })
+          }, 3000);
+        });
+      }).end();
+
+      return (
+        <div id="splash" className={"splash-" + splashNumber}>
+          <p className="image">
+            <img src={imgSplashPath} />
+          </p>
+          <p className="message">
+            Loading...
+          </p>
+        </div>
+      )
+    }
+
+    var characters = _.uniq(this.state.meigens.map((m) => {
       return { id: m.cid, name: m.character }
     }), "id");
 
     var popup = null;
 
     if (this.state.selectedMeigenID) {
-      var meigen = this.props.meigens.filter((m) => { return m.id == this.state.selectedMeigenID })[0];
+      var meigen = this.state.meigens.filter((m) => { return m.id == this.state.selectedMeigenID })[0];
       popup = <MeigenPopup id={meigen.id} title={meigen.title} image={meigen.image} character={meigen.character} cid={meigen.cid} eid={meigen.eid} unselectMeigen={this.unselectMeigen} />
     }
 
-    var filtered = this.props.meigens;
+    var filtered = this.state.meigens;
 
     if (this.state.currentCharacterID != 0) {
-      filtered = this.props.meigens.filter((m) => { return m.cid == this.state.currentCharacterID });
+      filtered = this.state.meigens.filter((m) => { return m.cid == this.state.currentCharacterID });
     }
 
     if (this.state.query.length > 0) {

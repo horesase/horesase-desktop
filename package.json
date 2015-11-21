@@ -24,16 +24,17 @@
     "gulp-coffee": "^2.3.1",
     "gulp-load-plugins": "^1.1.0",
     "gulp-watch": "^4.3.5",
-    "gulp-webpack": "^1.5.0",
     "webpack": "^1.12.6",
+    "webpack-stream": "^2.1.1",
     "babel-core": "^6.1.21",
     "babel-loader": "^6.1.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
-    "css-loader": "",
-    "sass-loader": "",
-    "style-loader": "",
-    "image-webpack-loader": ""
+    "node-sass": "^3.4.2",
+    "css-loader": "^0.23.0",
+    "sass-loader": "^3.1.1",
+    "style-loader": "^0.13.0",
+    "image-webpack-loader": "^1.6.2"
   },
   "dependencies": {
     "react": "^0.14.3",
