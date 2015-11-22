@@ -112,19 +112,30 @@ body {
     }
   }
 
-  ul#meigen-list {
+  #meigen-list-wrapper {
     margin-left: 200px;
     padding: 10px;
 
-    li.meigen {
-      display: inline-block;
-      width: 240px;
-      margin: 10px 10px;
-      cursor: pointer;
-
-      img {
+    ul#meigen-list {
+      li.meigen {
+        display: inline-block;
         width: 240px;
+        margin: 10px 10px;
+        cursor: pointer;
+
+        img {
+          width: 240px;
+        }
       }
+    }
+
+    #loader {
+      margin: 10px;
+      padding: 5px 0;
+      border: 1px solid #ccc;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
     }
   }
 }

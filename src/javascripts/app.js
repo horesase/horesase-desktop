@@ -20,8 +20,14 @@ var imgSplashPath = "build/" + require("../images/splash/" + splashNumber + ".gi
 
 var MeigenList = React.createClass({
   propTypes: {
-    meigens:      React.PropTypes.array.isRequired,
-    selectMeigen: React.PropTypes.func.isRequired
+    meigens:         React.PropTypes.array.isRequired,
+    hasMoreMeigens:  React.PropTypes.bool.isRequired,
+    loadMoreMeigens: React.PropTypes.func.isRequired,
+    selectMeigen:    React.PropTypes.func.isRequired
+  },
+
+  onClick() {
+    this.props.loadMoreMeigens();
   },
 
   render() {
@@ -30,7 +36,12 @@ var MeigenList = React.createClass({
     });
 
     return(
-      <ul id="meigen-list">{list}</ul>
+      <div id="meigen-list-wrapper">
+        <ul id="meigen-list">
+          {list}
+        </ul>
+        {this.props.hasMoreMeigens ? <div id="loader" onClick={this.onClick}>Load more meigens</div> : null}
+      </div>
     );
   }
 });
@@ -217,9 +228,14 @@ var Searcher = React.createClass({
 });
 
 var Horesase = React.createClass({
+  propTypes: {
+    initialDisplayCount: React.PropTypes.number.isRequired,
+  },
+
   getInitialState() {
     return {
       meigens: null,
+      displayCount: this.props.initialDisplayCount,
       query: "",
       currentCharacterID: 0,
       selectedMeigenID: null
@@ -234,12 +250,16 @@ var Horesase = React.createClass({
     this.setState({ selectedMeigenID: null });
   },
 
+  loadMoreMeigens() {
+    this.setState({ displayCount: this.state.displayCount + this.props.initialDisplayCount * 2 });
+  },
+
   selectCharacter(characterID) {
-    this.setState({ currentCharacterID: characterID });
+    this.setState({ currentCharacterID: characterID, displayCount: this.props.initialDisplayCount });
   },
 
   updateQuery(newQuery) {
-    this.setState({ query: newQuery });
+    this.setState({ query: newQuery, displayCount: this.props.initialDisplayCount });
   },
 
   render() {
@@ -290,7 +310,9 @@ var Horesase = React.createClass({
       });
     }
 
-    filtered = _.take(_.sortBy(filtered, (m) => { return m.id * -1 }), 36);
+    var hasMoreMeigens = filtered.length > this.state.displayCount;
+
+    filtered = _.take(_.sortBy(filtered, (m) => { return m.id * -1 }), this.state.displayCount);
 
     return(
       <div id="horesase">
@@ -299,7 +321,7 @@ var Horesase = React.createClass({
         </div>
         <div id="list-container">
           <CharacterList characters={characters} currentCharacterID={this.state.currentCharacterID} selectCharacter={this.selectCharacter} />
-          <MeigenList meigens={filtered} selectMeigen={this.selectMeigen} />
+          <MeigenList meigens={filtered} hasMoreMeigens={hasMoreMeigens} loadMoreMeigens={this.loadMoreMeigens} selectMeigen={this.selectMeigen} />
         </div>
         {popup}
       </div>
@@ -308,6 +330,6 @@ var Horesase = React.createClass({
 });
 
 ReactDOM.render(
-  <Horesase />,
+  <Horesase initialDisplayCount={36} />,
   document.getElementById("app")
 );
