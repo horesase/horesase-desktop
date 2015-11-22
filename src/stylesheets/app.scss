@@ -1,3 +1,8 @@
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -47,6 +52,10 @@ body {
       max-height: 700px;
     }
   }
+}
+
+#horesase {
+  animation: fadein 2s;
 }
 
 #searcher-container {
