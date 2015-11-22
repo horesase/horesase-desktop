@@ -1,10 +1,10 @@
 // Libraries
 
-var React     = require("react");
-var ReactDOM  = require("react-dom");
-var HTTP      = require("http");
-var _         = require("lodash");
-var Clipboard = require("clipboard");
+var React           = require("react");
+var ReactDOM        = require("react-dom");
+var CopyToClipboard = require("react-copy-to-clipboard");
+var HTTP            = require("http");
+var _               = require("lodash");
 
 // Stylesheets
 
@@ -59,6 +59,14 @@ var Meigen = React.createClass({
 });
 
 var MeigenPopup = React.createClass({
+  getInitialState() {
+    return {
+      copied_markdown: false,
+      copied_html:     false,
+      copied_url:      false
+    }
+  },
+
   propTypes: {
     id:             React.PropTypes.number.isRequired,
     title:          React.PropTypes.string.isRequired,
@@ -77,6 +85,19 @@ var MeigenPopup = React.createClass({
 
   onFocus(event) {
     event.target.select();
+  },
+
+  onCopy(from) {
+    if (from == "markdown") {
+      this.setState({ copied_markdown: true });
+      setTimeout(() => { this.setState({ copied_markdown: false }); }, 1000);
+    } else if (from == "html") {
+      this.setState({ copied_html: true });
+      setTimeout(() => { this.setState({ copied_html: false }); }, 1000);
+    } else if (from == "url") {
+      this.setState({ copied_url: true });
+      setTimeout(() => { this.setState({ copied_url: false }); }, 1000);
+    }
   },
 
   render() {
@@ -98,30 +119,27 @@ var MeigenPopup = React.createClass({
             <p className="character">
               {this.props.character}
             </p>
+
             <div className="copy-boards">
               <div className="copy-board">
                 <h3>Markdown</h3>
                 <p><input type="text" defaultValue={paster.markdown} onFocus={this.onFocus} /></p>
-                <span className="copy-button" data-clipboard-text={paster.markdown}>
-                  <img src={imgClippyPath} width="14" />
-                </span>
-                <span className="status">Copied!</span>
-              </div>
-              <div className="copy-board">
-                <h3>HTML</h3>
-                <p><input type="text" defaultValue={paster.html} onFocus={this.onFocus} /></p>
-                <span className="copy-button" data-clipboard-text={paster.html}>
-                  <img src={imgClippyPath} width="14" />
-                </span>
-                <span className="status">Copied!</span>
+                <CopyToClipboard text={paster.markdown} onCopy={(_text) => { this.onCopy("markdown"); }}>
+                  <span className="copy-button">
+                    <img src={imgClippyPath} width="14" />
+                  </span>
+                </CopyToClipboard>
+                {this.state.copied_markdown ? <span className="status">Copied!</span> : null}
               </div>
               <div className="copy-board">
                 <h3>Image URL</h3>
                 <p><input type="text" defaultValue={paster.url} onFocus={this.onFocus} /></p>
-                <span className="copy-button" data-clipboard-text={paster.url}>
-                  <img src={imgClippyPath} width="14" />
-                </span>
-                <span className="status">Copied!</span>
+                <CopyToClipboard text={paster.url} onCopy={(_text) => { this.onCopy("url"); }}>
+                  <span className="copy-button">
+                    <img src={imgClippyPath} width="14" />
+                  </span>
+                </CopyToClipboard>
+                {this.state.copied_url ? <span className="status">Copied!</span> : null}
               </div>
             </div>
           </div>
@@ -293,14 +311,3 @@ ReactDOM.render(
   <Horesase />,
   document.getElementById("app")
 );
-
-var clipboard = new Clipboard(".copy-button");
-
-clipboard.on("success", function(event) {
-  var status = event.trigger.nextSibling;
-  status.className = `${status.className} shown`;
-
-  setTimeout(function() {
-    status.className = status.className.replace("shown", "");
-  }, 1000);
-});

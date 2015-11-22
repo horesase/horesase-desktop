@@ -40,6 +40,6 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "lodash": "^3.10.1",
-    "clipboard": "^1.5.5"
+    "react-copy-to-clipboard": "^3.0.4"
   }
 }

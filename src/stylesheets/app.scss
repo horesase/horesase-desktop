@@ -1,6 +1,11 @@
-@keyframes fadein {
+@keyframes fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 * {
@@ -55,7 +60,7 @@ body {
 }
 
 #horesase {
-  animation: fadein 2s;
+  animation: fade-in 2s;
 }
 
 #searcher-container {
@@ -211,16 +216,14 @@ body {
           }
 
           .status {
-            display: none;
             position: absolute;
             top: 0;
             right: 0;
             font-size: 12px;
+            font-weight: bold;
             color: green;
-
-            &.shown {
-              display: inline;
-            }
+            animation: fade-out 1s;
+            animation-fill-mode: forwards;
           }
         }
 
